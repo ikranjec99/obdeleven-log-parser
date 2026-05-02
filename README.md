@@ -8,6 +8,18 @@ A minimal .NET 10 console app that parses OBDeleven vehicle diagnostic log files
 dotnet run -- path/to/OBDeleven_Log.txt
 ```
 
+## Tests
+
+```bash
+dotnet test
+```
+
+Or if you want verbose output:
+
+```bash
+dotnet test --logger "console;verbosity=detailed"
+```
+
 ## Output
 
 Parsed log is serialized to JSON with typed fields — no raw strings or magic keys. Each fault entry includes a fully typed snapshot (RPM, temperatures, voltages, etc.) extracted from the freeze frame data.
@@ -15,12 +27,10 @@ Parsed log is serialized to JSON with typed fields — no raw strings or magic k
 ```json
 {
   "LogDate": "2026-04-18T14:17:58",
-  "Vehicle": 
-  {
+  "Vehicle": {
     "Vin": "...",
     "Car": "Volkswagen",
-    "Year": 2022,
-    ...
+    "Year": 2022
   },
   "Modules": [
     {
@@ -31,7 +41,7 @@ Parsed log is serialized to JSON with typed fields — no raw strings or magic k
           "Code": "P008700",
           "Description": "Fuel Rail/System Pressure - Too Low",
           "Status": "Intermittent",
-          "Snapshot": { "Priority": 2, "EngineRpm": 436, "CoolantTempC": 20, ... }
+          "Snapshot": { "Priority": 2, "EngineRpm": 436, "CoolantTempC": 20 }
         }
       ]
     }
