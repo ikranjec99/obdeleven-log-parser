@@ -1,6 +1,8 @@
 # OBDeleven Log Parser
 
-A minimal .NET 10 console app that parses OBDeleven vehicle diagnostic log files and outputs structured JSON.
+Got a check engine light. Wrote a parser. You know how it goes.
+
+This is a minimal .NET 10 console app that takes an OBDeleven diagnostic log export and turns it into structured JSON — typed fields, no magic strings, ready to pipe into whatever you want.
 
 ## Usage
 
@@ -14,7 +16,7 @@ dotnet run -- path/to/OBDeleven_Log.txt
 dotnet test
 ```
 
-Or if you want verbose output:
+Verbose output if something looks off:
 
 ```bash
 dotnet test --logger "console;verbosity=detailed"
@@ -22,15 +24,13 @@ dotnet test --logger "console;verbosity=detailed"
 
 ## Output
 
-Parsed log is serialized to JSON with typed fields — no raw strings or magic keys. Each fault entry includes a fully typed snapshot (RPM, temperatures, voltages, etc.) extracted from the freeze frame data.
-
 ```json
 {
   "LogDate": "2026-04-18T14:17:58",
   "Vehicle": {
     "Vin": "...",
-    "Car": "Volkswagen",
-    "Year": 2022
+    "Car": "Volkswagen Golf R",
+    "Year": 2018
   },
   "Modules": [
     {
@@ -53,3 +53,7 @@ Parsed log is serialized to JSON with typed fields — no raw strings or magic k
 
 - .NET 10 SDK
 - OBDeleven log file exported from the [OBDeleven app](https://obdeleven.com)
+
+## Background
+
+Full write-up on how this was built and what I learned along the way: [ikranjec99.github.io/blog/obdeleven-log-parser](https://ikranjec99.github.io/blog/obdeleven-log-parser/)
