@@ -1,0 +1,67 @@
+OBDeleven vehicle history log
+Date: 2026-04-18 14:17:58
+
+	VIN: WVWWF7AU9JW062918
+	Car: Volkswagen Golf 7R
+	Year: 2018
+	Body type: UNKNOWN
+	Engine: DJHA 228 kW (310 hp) 2L
+	Mileage: 131921 km
+
+---------------------------------------------------------------
+01 Engine
+		System description: R4 2.0l TDI
+		Software number: 05L906022JN
+		Software version: 1985
+		Hardware number: 05L907309T
+		Hardware version: H80
+		
+		Faults:
+				P008700 - Fuel Rail/System Pressure - Too Low
+				Intermittent
+					Priority - 2 
+				Malfunction frequency counter - 1 
+				Unlearning counter - 30 
+				km-Mileage - 131206 km
+				Engine speed - 436.00 1/min
+				Normed load value - 99.6 %
+				Vehicle speed - 0 km/h
+				Coolant temperature - 20 °C
+				Intake air temperature - 21 °C
+				Ambient air pressure - 990 mbar
+				Voltage terminal 30 - 11.680 V
+				Dynamic environmental data - 20961E44D20BAA2097061E41CA0755446002F7446117BB39232153220619C8 
+				date - 2026-03-23 14:02:52 
+				
+				P008700 - Fuel Rail/System Pressure - Too Low
+				Intermittent
+					Priority - 2 
+				Malfunction frequency counter - 1 
+				Unlearning counter - 30 
+				km-Mileage - 131206 km
+				Engine speed - 641.00 1/min
+				Normed load value - 99.6 %
+				Vehicle speed - 0 km/h
+				Coolant temperature - 20 °C
+				Intake air temperature - 21 °C
+				Ambient air pressure - 990 mbar
+				Voltage terminal 30 - 11.700 V
+				Dynamic environmental data - 20961E44D20BAA20970D4941CA06CE446002F7446119D539232153220619C8 
+				date - 2026-03-23 14:02:52 
+				
+				P008A00 - Low Pressure Fuel System Pressure - Too Low
+				Intermittent
+					Priority - 2 
+				Malfunction frequency counter - 1 
+				Unlearning counter - 30 
+				km-Mileage - 131206 km
+				Engine speed - 579.00 1/min
+				Normed load value - 99.6 %
+				Vehicle speed - 0 km/h
+				Coolant temperature - 20 °C
+				Intake air temperature - 21 °C
+				Ambient air pressure - 990 mbar
+				Voltage terminal 30 - 11.780 V
+				Dynamic environmental data - 20961E448B170344C50041CA06E841CB022641CC000044D20BAA220619C8 
+				date - 2026-03-23 14:02:52 
+				

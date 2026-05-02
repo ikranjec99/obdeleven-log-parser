@@ -1,9 +1,9 @@
-﻿namespace OBDelevenLogParser;
+﻿using System.Text.Json;
+using OBDelevenLogParser;
 
-class Program
-{
-    static void Main(string[] args)
-    {
-        Console.WriteLine("Hello, World!");
-    }
-}
+var path = args.FirstOrDefault() ?? "OBDeleven_Log.txt";
+if (!File.Exists(path)) { Console.Error.WriteLine($"File not found: {path}"); return 1; }
+
+var log = OBDParser.Parse(File.ReadAllLines(path));
+Console.WriteLine(JsonSerializer.Serialize(log, new JsonSerializerOptions { WriteIndented = true }));
+return 0;
