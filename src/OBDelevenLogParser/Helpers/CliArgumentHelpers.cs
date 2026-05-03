@@ -2,14 +2,8 @@ using OBDelevenLogParser.Models;
 
 namespace OBDelevenLogParser.Helpers;
 
-public static class CliHelpers
+public static class CliArgumentHelpers
 {
-    public static int Fail(string message)
-    {
-        Console.Error.WriteLine(message);
-        return 1;
-    }
-    
     public static CliArguments ParseArgs(string[] args)
     {
         string? inputPath  = null;
