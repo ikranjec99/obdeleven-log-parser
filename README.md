@@ -6,9 +6,33 @@ This is a minimal .NET 10 console app that takes an OBDeleven diagnostic log exp
 
 ## Usage
 
+Parse a log and print JSON to stdout:
+
+```bash
+dotnet run -- --input path/to/OBDeleven_Log.txt
+```
+
+Write the JSON to a file instead of stdout:
+
+```bash
+dotnet run -- --input path/to/OBDeleven_Log.txt -o OBDeleven_Log.json
+```
+
+Options can be written in long, short, or equals form:
+
+```bash
+dotnet run -- -i path/to/OBDeleven_Log.txt --output OBDeleven_Log.json
+dotnet run -- --input=path/to/OBDeleven_Log.txt --output=OBDeleven_Log.json
+```
+
+The input path can also be positional:
+
 ```bash
 dotnet run -- path/to/OBDeleven_Log.txt
+dotnet run -- path/to/OBDeleven_Log.txt -o OBDeleven_Log.json
 ```
+
+If no input path is provided, the app looks for `OBDeleven_Log.txt` in the current directory.
 
 ## Tests
 

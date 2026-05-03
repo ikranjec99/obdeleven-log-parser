@@ -1,4 +1,6 @@
-﻿namespace OBDelevenLogParser.Tests;
+﻿using OBDelevenLogParser.Helpers;
+
+namespace OBDelevenLogParser.Tests;
 
 public class UnitTests
 {
@@ -137,6 +139,98 @@ public class UnitTests
         var log = OBDParser.Parse(MultiModuleLog());
 
         Assert.Equal(2, log.Modules.Count);
+    }
+
+    // ── cli ──────────────────────────────────────────────────────────────────
+
+    [Theory]
+    [InlineData("--input", "input.txt")]
+    [InlineData("-i", "input.txt")]
+    public void Cli_ParseArgs_ReturnsInputPathFromInputOption(string option, string inputPath)
+    {
+        var args = CliHelpers.ParseArgs([option, inputPath]);
+
+        Assert.True(args.IsValid);
+        Assert.Equal(inputPath, args.InputPath);
+        Assert.Null(args.OutputPath);
+    }
+
+    [Theory]
+    [InlineData("--input=input.txt", "input.txt")]
+    [InlineData("--output=output.json", "output.json")]
+    public void Cli_ParseArgs_ReturnsPathFromEqualsOption(string option, string expectedPath)
+    {
+        var args = CliHelpers.ParseArgs([option]);
+
+        Assert.True(args.IsValid);
+        Assert.Equal(expectedPath, args.InputPath ?? args.OutputPath);
+    }
+
+    [Theory]
+    [InlineData("--output", "output.json")]
+    [InlineData("-o", "output.json")]
+    public void Cli_ParseArgs_ReturnsOutputPathFromOutputOption(string option, string outputPath)
+    {
+        var args = CliHelpers.ParseArgs(["input.txt", option, outputPath]);
+
+        Assert.True(args.IsValid);
+        Assert.Equal("input.txt", args.InputPath);
+        Assert.Equal(outputPath, args.OutputPath);
+    }
+
+    [Fact]
+    public void Cli_ParseArgs_AllowsExplicitInputAndOutput()
+    {
+        var args = CliHelpers.ParseArgs(["--input", "OBDeleven_Log.txt", "-o", "OBDeleven_Log.json"]);
+
+        Assert.True(args.IsValid);
+        Assert.Equal("OBDeleven_Log.txt", args.InputPath);
+        Assert.Equal("OBDeleven_Log.json", args.OutputPath);
+    }
+
+    [Fact]
+    public void Cli_ParseArgs_KeepsPositionalInputPathWorking()
+    {
+        var args = CliHelpers.ParseArgs(["OBDeleven_Log.txt"]);
+
+        Assert.True(args.IsValid);
+        Assert.Equal("OBDeleven_Log.txt", args.InputPath);
+        Assert.Null(args.OutputPath);
+    }
+
+    [Theory]
+    [InlineData("--input", "Missing input path after --input.")]
+    [InlineData("-i", "Missing input path after -i.")]
+    [InlineData("--output", "Missing output path after --output.")]
+    [InlineData("-o", "Missing output path after -o.")]
+    [InlineData("--wat", "Unknown option: --wat")]
+    public void Cli_ParseArgs_ReturnsFailureForInvalidArguments(string option, string expectedError)
+    {
+        var args = CliHelpers.ParseArgs([option]);
+
+        Assert.False(args.IsValid);
+        Assert.Equal(expectedError, args.Error);
+    }
+
+    [Fact]
+    public void File_WriteToFile_CreatesDirectoryAndWritesContent()
+    {
+        var tempDir = Path.Combine(Path.GetTempPath(), $"obdeleven-log-parser-{Guid.NewGuid():N}");
+        var outputPath = Path.Combine(tempDir, "nested", "OBDeleven_Log.json");
+
+        try
+        {
+            FileHelpers.WriteToFile(outputPath, """{"ok":true}""");
+
+            Assert.Equal("""{"ok":true}""", File.ReadAllText(outputPath));
+        }
+        finally
+        {
+            if (Directory.Exists(tempDir))
+            {
+                Directory.Delete(tempDir, recursive: true);
+            }
+        }
     }
 
     // ── test data ─────────────────────────────────────────────────────────────
