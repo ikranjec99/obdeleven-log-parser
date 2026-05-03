@@ -4,6 +4,8 @@ Got a check engine light. Wrote a parser. You know how it goes.
 
 This is a minimal .NET 10 console app that takes an OBDeleven diagnostic log export and turns it into structured JSON — typed fields, no magic strings, ready to pipe into whatever you want.
 
+![OBDeleven Log Parser](docs/screenshot.webp)
+
 ## Usage
 
 Parse a log and print JSON to stdout:
