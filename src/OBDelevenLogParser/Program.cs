@@ -4,16 +4,27 @@ using OBDelevenLogParser.Helpers;
 
 const string defaultInput = "OBDeleven_Log.txt";
 
-var arguments = CliHelpers.ParseArgs(args);
+ConsoleHelpers.WriteHeader();
+
+var arguments = CliArgumentHelpers.ParseArgs(args);
 if (!arguments.IsValid)
-    return CliHelpers.Fail(arguments.Error!);
+{
+    ConsoleHelpers.WriteError(arguments.Error!);
+    return 1;
+}
 
 var path = arguments.InputPath ?? defaultInput;
 if (!File.Exists(path))
-    return CliHelpers.Fail($"File not found: {path}");
+{
+    ConsoleHelpers.WriteError($"File {path} does not exist");
+    return 1;
+}
+
+var log = OBDParser.Parse(File.ReadAllLines(path));
+ConsoleHelpers.WriteSummary(log, path, arguments.OutputPath);
 
 var json = JsonSerializer.Serialize(
-    OBDParser.Parse(File.ReadAllLines(path)),
+    log,
     new JsonSerializerOptions { WriteIndented = true }
 );
 

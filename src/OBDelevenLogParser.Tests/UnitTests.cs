@@ -148,7 +148,7 @@ public class UnitTests
     [InlineData("-i", "input.txt")]
     public void Cli_ParseArgs_ReturnsInputPathFromInputOption(string option, string inputPath)
     {
-        var args = CliHelpers.ParseArgs([option, inputPath]);
+        var args = CliArgumentHelpers.ParseArgs([option, inputPath]);
 
         Assert.True(args.IsValid);
         Assert.Equal(inputPath, args.InputPath);
@@ -160,7 +160,7 @@ public class UnitTests
     [InlineData("--output=output.json", "output.json")]
     public void Cli_ParseArgs_ReturnsPathFromEqualsOption(string option, string expectedPath)
     {
-        var args = CliHelpers.ParseArgs([option]);
+        var args = CliArgumentHelpers.ParseArgs([option]);
 
         Assert.True(args.IsValid);
         Assert.Equal(expectedPath, args.InputPath ?? args.OutputPath);
@@ -171,7 +171,7 @@ public class UnitTests
     [InlineData("-o", "output.json")]
     public void Cli_ParseArgs_ReturnsOutputPathFromOutputOption(string option, string outputPath)
     {
-        var args = CliHelpers.ParseArgs(["input.txt", option, outputPath]);
+        var args = CliArgumentHelpers.ParseArgs(["input.txt", option, outputPath]);
 
         Assert.True(args.IsValid);
         Assert.Equal("input.txt", args.InputPath);
@@ -181,7 +181,7 @@ public class UnitTests
     [Fact]
     public void Cli_ParseArgs_AllowsExplicitInputAndOutput()
     {
-        var args = CliHelpers.ParseArgs(["--input", "OBDeleven_Log.txt", "-o", "OBDeleven_Log.json"]);
+        var args = CliArgumentHelpers.ParseArgs(["--input", "OBDeleven_Log.txt", "-o", "OBDeleven_Log.json"]);
 
         Assert.True(args.IsValid);
         Assert.Equal("OBDeleven_Log.txt", args.InputPath);
@@ -191,7 +191,7 @@ public class UnitTests
     [Fact]
     public void Cli_ParseArgs_KeepsPositionalInputPathWorking()
     {
-        var args = CliHelpers.ParseArgs(["OBDeleven_Log.txt"]);
+        var args = CliArgumentHelpers.ParseArgs(["OBDeleven_Log.txt"]);
 
         Assert.True(args.IsValid);
         Assert.Equal("OBDeleven_Log.txt", args.InputPath);
@@ -206,7 +206,7 @@ public class UnitTests
     [InlineData("--wat", "Unknown option: --wat")]
     public void Cli_ParseArgs_ReturnsFailureForInvalidArguments(string option, string expectedError)
     {
-        var args = CliHelpers.ParseArgs([option]);
+        var args = CliArgumentHelpers.ParseArgs([option]);
 
         Assert.False(args.IsValid);
         Assert.Equal(expectedError, args.Error);
